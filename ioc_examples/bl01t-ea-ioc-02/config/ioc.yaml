@@ -1,0 +1,59 @@
+# yaml-language-server: $schema=https://github.com/epics-containers/ioc-adsimdetector/releases/download/2023.11.2/ibek.ioc.schema.json
+
+ioc_name: bl01t-ea-ioc-02
+description: Example simulated camera for BL01T
+
+entities:
+  - type: ADSimDetector.simDetector
+    PORT: det.cam
+    P: BL01T-EA-TST-02
+    R: ":CAM:"
+
+  - type: ADCore.NDPvaPlugin
+    PORT: det.pva
+    PVNAME: BL01T-EA-TST-02:PVA:OUTPUT
+    P: BL01T-EA-TST-02
+    R: ":PVA:"
+    NDARRAY_PORT: det.cam
+
+  - type: ADCore.NDROI
+    NDARRAY_PORT: det.cam
+    P: BL01T-EA-TST-02
+    PORT: det.roi
+    R: ":ROI:"
+
+  - type: ADCore.NDStdArrays
+    FTVL: UCHAR
+    NDARRAY_PORT: det.roi
+    NELEMENTS: 1200000
+    P: BL01T-EA-TST-02
+    PORT: det.arr
+    R: ":ARR:"
+    TYPE: Int8
+
+  - type: ADCore.NDStats
+    HIST_SIZE: 256
+    NDARRAY_PORT: det.cam
+    P: BL01T-EA-TST-02
+    PORT: det.stat
+    R: ":STAT:"
+    XSIZE: 1292
+    YSIZE: 964
+
+  - type: ADCore.NDProcess
+    NDARRAY_PORT: det.cam
+    P: BL01T-EA-TST-02
+    PORT: det.proc
+    R: ":PROC:"
+
+  - type: ADCore.NDFileTIFF
+    NDARRAY_PORT: det.cam
+    P: BL01T-EA-TST-02
+    PORT: det.tiff
+    R: ":TIFF:"
+
+  - type: ADCore.NDFileHDF5
+    NDARRAY_PORT: det.cam
+    P: BL01T-EA-TST-02
+    PORT: det.hdf
+    R: ":HDF5:"
