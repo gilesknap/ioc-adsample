@@ -10,15 +10,12 @@ FROM  ${REGISTRY}/epics-base-${TARGET_ARCHITECTURE}-developer:${BASE} AS develop
 COPY requirements.txt requirements.txt
 RUN pip install --upgrade -r requirements.txt
 
-# The devcontainer mounts the project root to /epics/ioc-adsimdetector. Using
+# The devcontainer mounts the project root to /epics/ioc-adsample. Using
 # the same location here makes devcontainer/runtime differences transparent.
-WORKDIR /epics/ioc-adsimdetector/ibek-support
+WORKDIR /epics/ioc-adsample/ibek-support
 
 # copy the global ibek files
 COPY ibek-support/_global/ _global
-
-COPY ibek-support/iocStats/ iocStats
-RUN iocStats/install.sh 3.1.16
 
 COPY ibek-support/asyn/ asyn/
 RUN asyn/install.sh R4-42
@@ -39,7 +36,7 @@ COPY ibek-support/ADCore/ ADCore/
 RUN ADCore/install.sh R3-12-1
 
 COPY ibek-support/ADSimDetector/ ADSimDetector/
-RUN ADSimDetector/install.sh R2-10
+RUN ADSimDetector/install.sh R2-9
 
 # create IOC source tree, generate Makefile and compile IOC Instance
 RUN ibek ioc build
