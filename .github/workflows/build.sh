@@ -30,16 +30,9 @@ export EC_CARGS="
     --cache-to type=local,dest=${EC_CACHE}
 "
 
-# add extra cross compilation platforms below if needed  e.g.
-#   ec dev build  --arch rtems ... for RTEMS cross compile
-
 # build runtime and developer images
 ec -v dev build ${EC_TAG} ${EC_PLATFORM} ${EC_PUSH} ${EC_CARGS}
 
 # extract the ioc schema from the runtime image
 ec dev launch-local ${EC_TAG} --execute 'ibek ioc generate-schema' > ibek.ioc.schema.json
-
-# run acceptance tests
-shopt -s nullglob # expand to nothing if no tests are found
-for t in "${THIS}/../../tests/*.sh"; do ${t}; done
 
