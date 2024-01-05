@@ -20,14 +20,8 @@ COPY ibek-support/_global/ _global
 COPY ibek-support/asyn/ asyn/
 RUN asyn/install.sh R4-42
 
-# COPY ibek-support/busy/ busy/
-# RUN busy/install.sh R1-7-3
-
-# COPY ibek-support/sscan/ sscan/
-# RUN sscan/install.sh R2-11-6
-
-# COPY ibek-support/calc/ calc/
-# RUN calc/install.sh R3-7-5
+COPY ibek-support/busy/ busy/
+RUN busy/install.sh R1-7-3
 
 COPY ibek-support/ADCore-slim/ ADCore-slim/
 RUN ADCore-slim/install.sh R3-12-1
